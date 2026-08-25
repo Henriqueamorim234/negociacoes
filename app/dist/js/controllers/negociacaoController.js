@@ -4,6 +4,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+import { domInjector } from "../decorators/domInjector.js";
 import { inspect } from "../decorators/inspect.js";
 import { logarTempoDeExecucao } from "../decorators/logarTempoDeExecucao.js";
 import { DiasDaSemana } from "../enums/diasDaSemana.js";
@@ -18,10 +19,6 @@ export class NegociacaoController {
         this.mensagemView = new MensagemView("#mensagem-view");
         this.sabado = 6;
         this.domingo = 0;
-        const [inputData, inputQuantidade, inputValor] = this.verificaNull();
-        this.inputData = inputData;
-        this.inputQuantidade = inputQuantidade;
-        this.inputValor = inputValor;
         this.negociacoesView.update(this.listaNegociacoes);
     }
     adiciona() {
@@ -34,24 +31,12 @@ export class NegociacaoController {
         this.atualizaView();
         this.limparFormulario();
     }
+    importaDados() {
+        alert("oi");
+    }
     ehDiaUtil(data) {
         return (data.getDay() > DiasDaSemana.DOMINGO &&
             data.getDay() < DiasDaSemana.SABADO);
-    }
-    verificaNull() {
-        const inputData = document.getElementById("data");
-        if (inputData == null) {
-            throw new Error("Elemento com id 'data' não encontrado");
-        }
-        const inputQuantidade = document.getElementById("quantidade");
-        if (inputQuantidade == null) {
-            throw new Error("Elemento com id 'quantidade' não encontrado");
-        }
-        const inputValor = document.getElementById("valor");
-        if (inputValor == null) {
-            throw new Error("Elemento com id 'valor' não encontrado");
-        }
-        return [inputData, inputQuantidade, inputValor];
     }
     limparFormulario() {
         this.inputData.value = "";
@@ -64,6 +49,15 @@ export class NegociacaoController {
         this.mensagemView.update("Negociação adicionada com sucesso");
     }
 }
+__decorate([
+    domInjector("#data")
+], NegociacaoController.prototype, "inputData", void 0);
+__decorate([
+    domInjector("#quantidade")
+], NegociacaoController.prototype, "inputQuantidade", void 0);
+__decorate([
+    domInjector("#valor")
+], NegociacaoController.prototype, "inputValor", void 0);
 __decorate([
     inspect(),
     logarTempoDeExecucao()
