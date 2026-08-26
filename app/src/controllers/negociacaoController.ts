@@ -41,6 +41,7 @@ export class NegociacaoController {
       return;
     }
     this.listaNegociacoes.adiciona(negociacao);
+    console.log(`Data`);
     this.atualizaView();
     this.limparFormulario();
   }
